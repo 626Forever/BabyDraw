@@ -8,8 +8,8 @@ import android.view.View.OnClickListener;
 import android.widget.ImageButton;
 
 /**
- * 帮助Activity，主要显示了本软件的帮助文档，并包含退出按钮
- * @author tf
+ * 帮助Activity，并包含退出按钮
+ * @author hzy
  *
  */
 public class Help extends Activity implements OnClickListener{

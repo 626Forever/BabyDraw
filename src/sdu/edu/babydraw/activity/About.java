@@ -14,7 +14,7 @@ import android.widget.TextView;
 
 /**
  * 关于Activity说明了软件的一些特性
- * @author tf
+ * @author hzy
  *
  */
 public class About extends Activity {

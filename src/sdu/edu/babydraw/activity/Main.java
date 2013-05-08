@@ -54,7 +54,7 @@ import android.widget.RadioGroup;
 /**
  * Main Activity实现了主场景的Activity主要负责PaintView与各组件的协调
  * 
- * @author hzy
+ * @author lhy,hzy
  * 
  */
 public class Main extends Activity implements OnClickListener {
@@ -91,7 +91,7 @@ public class Main extends Activity implements OnClickListener {
 	private PopupWindow mPopupWindow = null;
 	private PopupWindow toolsPopupWindow = null;
 
-	// 一共8个ColorView
+	// 8个ColorView
 	private ColorView colorView1 = null;
 	private ColorView colorView2 = null;
 	private ColorView colorView3 = null;
@@ -159,6 +159,9 @@ public class Main extends Activity implements OnClickListener {
 		initShapRadioGroupf();
 	}
 
+	/**
+	 * 初始化画笔实心样式
+	 */
 	private void initShapRadioGroupf() {
 		shapRadioGroupf
 				.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -199,7 +202,7 @@ public class Main extends Activity implements OnClickListener {
 	}
 
 	/**
-	 * 初始化第一个ShapRadioGroup
+	 * 初始化画笔空心样式
 	 */
 	private void initShapRadioGroup() {
 		curvRadioButton.setChecked(true);
@@ -244,7 +247,7 @@ public class Main extends Activity implements OnClickListener {
 	}
 
 	/**
-	 * 初始化负责确定Pensize的radioGroup
+	 * 初始化Pensize的radioGroup,画笔尺寸大小
 	 */
 	private void initPenSizeGroup() {
 		penSizeRadioGroup = (RadioGroup) findViewById(R.id.penRaidoGroup);
@@ -278,7 +281,7 @@ public class Main extends Activity implements OnClickListener {
 	}
 
 	/**
-	 * 初始化EraserSize选择布局
+	 * 初始化EraseSize，橡皮尺寸
 	 */
 	private void initEraseSizeGroup() {
 		eraserSizeRadioGroup = (RadioGroup) findViewById(R.id.eraseRaidoGroup);
