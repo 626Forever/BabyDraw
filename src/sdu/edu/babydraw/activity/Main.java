@@ -21,6 +21,7 @@ import sdu.edu.babydraw.view.OkCancleDialog;
 import sdu.edu.babydraw.view.OkDialog;
 import sdu.edu.babydraw.view.PaintView;
 import sdu.edu.babydraw.view.SaveDialog;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Intent;
@@ -34,6 +35,8 @@ import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
+import android.os.Message;
 import android.speech.RecognizerIntent;
 import android.util.Log;
 import android.view.Gravity;
@@ -61,9 +64,29 @@ public class Main extends Activity implements OnClickListener {
 	private static final int VOICE_RECOGNITION_REQUEST_CODE = 1234;
 	// PaintView
 	private PaintView mPaintView = null;
+	@SuppressLint("HandlerLeak")
+	
+	/**
+	 * handler处理消息队列
+	 */
+	private Handler mHandler = new Handler() {
 
+		@Override
+		public void handleMessage(Message msg) {
+			// TODO Auto-generated method stub
+			super.handleMessage(msg);
+			if (msg.arg1 == 1) {
+				Main.this.onClickButtonUndo();
+			}
+			if (msg.arg1 == 2) {
+				Main.this.onClickButtonRedo();
+			}
+		}
+
+	};
 	// button 界面上的各个按钮
-	private Button voiceButton=null;
+	private ImageButton decomButton=null;
+	private ImageButton voiceButton = null;
 	private ImageButton saveButton = null;
 	private ImageButton loadButton = null;
 	private ImageButton clearButton = null;
@@ -559,6 +582,8 @@ public class Main extends Activity implements OnClickListener {
 		list.add(toButtonLayoutButton);
 		list.add(toColorLayoutButton);
 		list.add(toolButton);
+		list.add(voiceButton);
+		list.add(decomButton);
 		return list;
 	}
 
@@ -566,7 +591,8 @@ public class Main extends Activity implements OnClickListener {
 	 * 找到所有的通过所有的button
 	 */
 	private void findButtonById() {
-		voiceButton = (Button)findViewById(R.id.buttonVoice);
+		decomButton= (ImageButton)findViewById(R.id.buttonDecom);
+		voiceButton = (ImageButton) findViewById(R.id.buttonVoice);
 		saveButton = (ImageButton) findViewById(R.id.imageButtonSave);
 		loadButton = (ImageButton) findViewById(R.id.imageButtonLoadPicture);
 		clearButton = (ImageButton) findViewById(R.id.imageButtonClear);
@@ -587,6 +613,9 @@ public class Main extends Activity implements OnClickListener {
 	 * 初始化所有Button的Drawable
 	 */
 	private void setBackGroundDrawable() {
+		
+		voiceButton.setBackgroundDrawable(getResources().getDrawable(R.drawable.voice));
+		decomButton.setBackgroundDrawable(getResources().getDrawable(R.drawable.decomposition));
 		clearButton.setBackgroundDrawable(getResources().getDrawable(
 				R.drawable.newfile));
 		eraserButton.setBackgroundDrawable(getResources().getDrawable(
@@ -620,7 +649,7 @@ public class Main extends Activity implements OnClickListener {
 		case R.id.buttonVoice:
 			this.startVoiceRecognitionActivity();
 			break;
-		
+
 		case R.id.imageButtonSave:
 			onClickButtonSave();
 			break;
@@ -693,6 +722,9 @@ public class Main extends Activity implements OnClickListener {
 			onClickButtonHelp();
 			break;
 
+		case R.id.buttonDecom:
+			onClickButtonShowPath();
+			break;
 		default:
 			break;
 		}
@@ -855,6 +887,44 @@ public class Main extends Activity implements OnClickListener {
 		setAllLayoutInvisable();
 		mPaintView.undo();
 		upDateUndoRedo();
+	}
+
+	/**
+	 * 显示笔画分解
+	 * 
+	 * @return
+	 */
+	private boolean onClickButtonShowPath() {
+		if (!mPaintView.canUndo())
+			return false;
+		else {
+			Runnable r = new Runnable() {
+				@Override
+				public void run() {
+					// TODO Auto-generated method stub
+					try {
+						while (mPaintView.canUndo()) {
+							Message msg = mHandler.obtainMessage();
+							msg.arg1 = 1;
+							mHandler.sendMessage(msg);
+							Thread.sleep(100);
+						}
+						Thread.sleep(500);
+						while (mPaintView.canRedo()) {
+							Message msg = mHandler.obtainMessage();
+							msg.arg1 = 2;
+							mHandler.sendMessage(msg);
+							Thread.sleep(1700);
+						}
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+			};
+			new Thread(r).start();
+			return true;
+		}
 	}
 
 	/**
@@ -1099,9 +1169,9 @@ public class Main extends Activity implements OnClickListener {
 				}
 			}
 			break;
-			
+
 		case VOICE_RECOGNITION_REQUEST_CODE:
-			if(resultCode == RESULT_OK){
+			if (resultCode == RESULT_OK) {
 				ArrayList<String> matches = data
 						.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
 				/*
@@ -1117,7 +1187,7 @@ public class Main extends Activity implements OnClickListener {
 				}
 			}
 			break;
-			
+
 		default:
 			break;
 		}
@@ -1156,8 +1226,7 @@ public class Main extends Activity implements OnClickListener {
 		redoButton.setBackgroundDrawable(getResources().getDrawable(
 				R.drawable.cantredo));
 	}
-	
-	
+
 	/**
 	 * Fire an intent to start the speech recognition activity.
 	 */
@@ -1169,5 +1238,5 @@ public class Main extends Activity implements OnClickListener {
 				"Speech recognition demo");
 		startActivityForResult(intent, VOICE_RECOGNITION_REQUEST_CODE);
 	}
-	
+
 }

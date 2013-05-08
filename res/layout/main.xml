@@ -65,12 +65,18 @@
             android:layout_height="wrap_content" >
         </ImageButton>
         
-        <Button 
+        <ImageButton 
+            android:id="@+id/buttonDecom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+        </ImageButton>
+        
+        <ImageButton 
             android:id="@+id/buttonVoice"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" 
-            android:text="yuyin">
-        </Button>
+            android:layout_height="wrap_content" >
+        </ImageButton>
+        
     </LinearLayout>
 
     <LinearLayout
