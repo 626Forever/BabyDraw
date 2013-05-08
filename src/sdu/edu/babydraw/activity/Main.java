@@ -1125,7 +1125,7 @@ public class Main extends Activity implements OnClickListener {
 	}
 
 	/**
-	 * 载入之后得到路径
+	 * 回调函数，处理读取和语音消息
 	 */
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
