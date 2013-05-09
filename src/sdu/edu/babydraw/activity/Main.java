@@ -1159,8 +1159,9 @@ public class Main extends Activity implements OnClickListener {
 				 */
 				for (int i = 0; i < matches.size(); i++) {
 					if (matches.get(i).equals("Ð¡¹·")) {
-						getResource();
+						getResource(R.drawable.dog);
 						System.out.println("true");
+						break;
 					} else {
 						System.out.println("false");
 					}
@@ -1174,11 +1175,15 @@ public class Main extends Activity implements OnClickListener {
 		super.onActivityResult(requestCode, resultCode, data);
 	}
 
-	private void getResource() {
+	/**
+	 * »æÖÆÍ¼Æ¬
+	 */
+	private void getResource(int resource) {
 		Bitmap bitmap;
+		//int resource = R.drawable.dog;
 		BitmapFactory.Options op = new BitmapFactory.Options();
 		op.inJustDecodeBounds = true;
-		BitmapFactory.decodeResource(this.getResources(), R.drawable.save, op);
+		BitmapFactory.decodeResource(this.getResources(), resource, op);
 		int wRatio = (int) Math.ceil(op.outWidth
 				/ (float) mPaintView.getWidth());
 		int hRatio = (int) Math.ceil(op.outHeight
@@ -1192,10 +1197,9 @@ public class Main extends Activity implements OnClickListener {
 			}
 		}
 		op.inJustDecodeBounds = false;
-		bitmap = BitmapFactory.decodeResource(this.getResources(),
-				R.drawable.save, op);
-		bitmap = BitmapFactory.decodeResource(this.getResources(),
-				R.drawable.save);
+		bitmap = BitmapFactory
+				.decodeResource(this.getResources(), resource, op);
+		bitmap = BitmapFactory.decodeResource(this.getResources(), resource);
 		mPaintView.setForeBitMap(bitmap);
 		mPaintView.resetState();
 		upDateUndoRedo();
