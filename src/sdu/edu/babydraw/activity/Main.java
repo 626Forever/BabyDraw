@@ -16,7 +16,6 @@ import sdu.edu.babydraw.utils.PaintConstants.PEN_TYPE;
 import sdu.edu.babydraw.utils.PaintConstants.SHAP;
 import sdu.edu.babydraw.view.ColorPickerDialog;
 import sdu.edu.babydraw.view.ColorPickerDialog.OnColorChangedListener;
-import sdu.edu.babydraw.view.ColorView;
 import sdu.edu.babydraw.view.OkCancleDialog;
 import sdu.edu.babydraw.view.OkDialog;
 import sdu.edu.babydraw.view.PaintView;
@@ -26,7 +25,6 @@ import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -45,8 +43,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.CompoundButton;
-import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
@@ -95,15 +91,6 @@ public class Main extends Activity implements OnClickListener {
 	private PopupWindow mPopupWindow = null;
 	private PopupWindow toolsPopupWindow = null;
 
-	// 8个ColorView
-	private ColorView colorView1 = null;
-	private ColorView colorView2 = null;
-	private ColorView colorView3 = null;
-	private ColorView colorView4 = null;
-	private ColorView colorView5 = null;
-	private ColorView colorView6 = null;
-	private ColorView colorView7 = null;
-	private ColorView colorView8 = null;
 
 	// 通过控制Layout来控制某些变化
 	private LinearLayout colorLayout = null;
@@ -127,8 +114,8 @@ public class Main extends Activity implements OnClickListener {
 	// 用于两个SizeRadioGroup的一些操作
 	private boolean clearCheckf = false;
 	private boolean clearCheck = false;
-
-	private List<ColorView> mColorViewList = null;
+	@SuppressWarnings("unused")
+	private boolean checkShowPath = false;
 
 	// 使用PenType临时存储选择的变量，当创建时再传给PaintView
 	private int mPenType = PEN_TYPE.PLAIN_PEN;
@@ -139,9 +126,10 @@ public class Main extends Activity implements OnClickListener {
 	 */
 	private Handler mHandler = new Handler() {
 
+		@SuppressLint("HandlerLeak")
 		@Override
 		public void handleMessage(Message msg) {
-			// TODO Auto-generated method stub
+		    //TODO Auto-generated method stub
 			super.handleMessage(msg);
 			if (msg.arg1 == 1) {
 				Main.this.onClickButtonUndo();
@@ -163,7 +151,6 @@ public class Main extends Activity implements OnClickListener {
 	private void init() {
 		initLayout();
 		initButtons();
-		initColorViews();
 		initPaintView();
 		initPopUpWindow();
 		initCallBack();
@@ -482,40 +469,6 @@ public class Main extends Activity implements OnClickListener {
 		shapLayoutf = (LinearLayout) findViewById(R.id.shapSelectLayout2);
 	}
 
-	/**
-	 * 初始化颜色选择的RadioGroup
-	 */
-	private void initColorRadioGroup() {
-		mColorViewList = new ArrayList<ColorView>();
-		mColorViewList.add(colorView1);
-		mColorViewList.add(colorView2);
-		mColorViewList.add(colorView3);
-		mColorViewList.add(colorView4);
-		mColorViewList.add(colorView5);
-		mColorViewList.add(colorView6);
-		mColorViewList.add(colorView7);
-		mColorViewList.add(colorView8);
-		LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-				PaintConstants.COLOR_VIEW_SIZE, PaintConstants.COLOR_VIEW_SIZE);
-		params.setMargins(10, 5, 10, 5);
-
-		for (ColorView colorView : mColorViewList) {
-			colorRadioGroup.addView(colorView, params);
-			colorView.setOnCheckedChangeListener(new OnCheckedChangeListener() {
-				@Override
-				public void onCheckedChanged(CompoundButton buttonView,
-						boolean isChecked) {
-					for (ColorView colorView : mColorViewList) {
-						if (buttonView.equals(colorView)
-								&& buttonView.isChecked()) {
-							setToLastPenTeype();
-							mPaintView.setPenColor(colorView.getColor());
-						}
-					}
-				}
-			});
-		}
-	}
 
 	/**
 	 * 如果是Eraser则Set到上一个PenType
@@ -526,32 +479,6 @@ public class Main extends Activity implements OnClickListener {
 		}
 	}
 
-	/**
-	 * 初始化颜色选择的View
-	 */
-	private void initColorViews() {
-		// 读取preference
-		SharedPreferences settings = getPreferences(Activity.MODE_PRIVATE);
-
-		// 如果配置文件不存在，则使用默认值
-		colorView1 = new ColorView(this, settings.getInt("color1",
-				PaintConstants.COLOR1));
-		colorView2 = new ColorView(this, settings.getInt("color2",
-				PaintConstants.COLOR2));
-		colorView3 = new ColorView(this, settings.getInt("color3",
-				PaintConstants.COLOR3));
-		colorView4 = new ColorView(this, settings.getInt("color4",
-				PaintConstants.COLOR4));
-		colorView5 = new ColorView(this, settings.getInt("color5",
-				PaintConstants.COLOR5));
-		colorView6 = new ColorView(this, settings.getInt("color6",
-				PaintConstants.COLOR6));
-		colorView7 = new ColorView(this, settings.getInt("color7",
-				PaintConstants.COLOR7));
-		colorView8 = new ColorView(this, settings.getInt("color8",
-				PaintConstants.COLOR8));
-		initColorRadioGroup();
-	}
 
 	/**
 	 * 初始化所有的Button
@@ -686,7 +613,7 @@ public class Main extends Activity implements OnClickListener {
 			break;
 
 		case R.id.imageButtonToColorLayout:
-			onClickButtonToColorLayout();
+			onClickButtonColorSelect();
 			break;
 
 		case R.id.imageButtonToButtonLayout:
@@ -771,24 +698,6 @@ public class Main extends Activity implements OnClickListener {
 				Gravity.RIGHT | Gravity.BOTTOM, 0, 0);
 	}
 
-	/**
-	 * 保存ColorViews
-	 */
-	@Override
-	protected void onPause() {
-		SharedPreferences currentState = getPreferences(MODE_PRIVATE);
-		SharedPreferences.Editor editor = currentState.edit();
-		editor.putInt("color1", colorView1.getColor());
-		editor.putInt("color2", colorView2.getColor());
-		editor.putInt("color3", colorView3.getColor());
-		editor.putInt("color4", colorView4.getColor());
-		editor.putInt("color5", colorView5.getColor());
-		editor.putInt("color6", colorView6.getColor());
-		editor.putInt("color7", colorView7.getColor());
-		editor.putInt("color8", colorView8.getColor());
-		editor.commit();
-		super.onPause();
-	}
 
 	/**
 	 * 当点击menu的时候将popupwindow伪装成menu显示
@@ -840,15 +749,6 @@ public class Main extends Activity implements OnClickListener {
 		colorLayout.setVisibility(View.GONE);
 	}
 
-	/**
-	 * 去颜色选择界面
-	 */
-	private void onClickButtonToColorLayout() {
-		setAllLayoutInvisable();
-		setToLastPenTeype();
-		buttonLayout.setVisibility(View.INVISIBLE);
-		colorLayout.setVisibility(View.VISIBLE);
-	}
 
 	/**
 	 * redo
@@ -895,13 +795,16 @@ public class Main extends Activity implements OnClickListener {
 							mHandler.sendMessage(msg);
 							Thread.sleep(1700);
 						}
+						checkShowPath = false;
 					} catch (InterruptedException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
+						checkShowPath = false;
 					}
 				}
 			};
 			new Thread(r).start();
+			checkShowPath = true;
 			return true;
 		}
 	}
@@ -939,15 +842,8 @@ public class Main extends Activity implements OnClickListener {
 		new ColorPickerDialog(this, new OnColorChangedListener() {
 			@Override
 			public void colorChanged(int color) {
+				setToLastPenTeype();
 				mPaintView.setPenColor(color);
-				for (ColorView colorView : mColorViewList) {
-					if (colorView.isChecked()) {
-						setToLastPenTeype();
-						colorView.setColor(color);
-						Log.e("aaa", "" + color);
-
-					}
-				}
 			}
 		}, mPaintView.getPenColor()).show();
 	}
@@ -1153,10 +1049,7 @@ public class Main extends Activity implements OnClickListener {
 			if (resultCode == RESULT_OK) {
 				ArrayList<String> matches = data
 						.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
-				/*
-				 * mList.setAdapter(new ArrayAdapter<String>(this,
-				 * android.R.layout.simple_list_item_1, matches));
-				 */
+			
 				for (int i = 0; i < matches.size(); i++) {
 					if (matches.get(i).equals("小狗")) {
 						getResource(R.drawable.dog);
@@ -1180,7 +1073,7 @@ public class Main extends Activity implements OnClickListener {
 	 */
 	private void getResource(int resource) {
 		Bitmap bitmap;
-		//int resource = R.drawable.dog;
+		// int resource = R.drawable.dog;
 		BitmapFactory.Options op = new BitmapFactory.Options();
 		op.inJustDecodeBounds = true;
 		BitmapFactory.decodeResource(this.getResources(), resource, op);

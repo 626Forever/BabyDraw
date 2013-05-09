@@ -3,87 +3,101 @@
     android:id="@+id/mainLayout"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:orientation="vertical" >
+    android:orientation="horizontal" >
 
     <LinearLayout
         android:id="@+id/buttonLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true" >
+        android:layout_alignParentLeft="true"
+        android:orientation="vertical" >
 
-        <ImageButton
-            android:id="@+id/imageButtonToColorLayout"
+        <ScrollView
+            android:id="@+id/scrollView"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" >
-        </ImageButton>
+            android:layout_height="wrap_content"
+            android:scrollbars="none" >
 
-        <ImageButton
-            android:id="@+id/imageButtonPen"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" >
-        </ImageButton>
+            <LinearLayout
+                android:id="@+id/buttonScrollLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
 
-        <ImageButton
-            android:id="@+id/imageButtonTools"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" >
-        </ImageButton>
+                <ImageButton
+                    android:id="@+id/imageButtonToColorLayout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" >
+                </ImageButton>
 
-        <ImageButton
-            android:id="@+id/imageButtonEraser"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" >
-        </ImageButton>
+                <ImageButton
+                    android:id="@+id/imageButtonPen"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" >
+                </ImageButton>
 
-        <ImageButton
-            android:id="@+id/imageButtonUndo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" >
-        </ImageButton>
+                <ImageButton
+                    android:id="@+id/imageButtonTools"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" >
+                </ImageButton>
 
-        <ImageButton
-            android:id="@+id/imageButtonRedo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" >
-        </ImageButton>
+                <ImageButton
+                    android:id="@+id/imageButtonEraser"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" >
+                </ImageButton>
 
-        <ImageButton
-            android:id="@+id/imageButtonClear"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" >
-        </ImageButton>
+                <ImageButton
+                    android:id="@+id/imageButtonUndo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" >
+                </ImageButton>
 
-        <ImageButton
-            android:id="@+id/imageButtonLoadPicture"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" >
-        </ImageButton>
+                <ImageButton
+                    android:id="@+id/imageButtonRedo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" >
+                </ImageButton>
 
-        <ImageButton
-            android:id="@+id/imageButtonSave"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" >
-        </ImageButton>
-        
-        <ImageButton 
-            android:id="@+id/buttonDecom"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" >
-        </ImageButton>
-        
-        <ImageButton 
-            android:id="@+id/buttonVoice"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" >
-        </ImageButton>
-        
+                <ImageButton
+                    android:id="@+id/imageButtonClear"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" >
+                </ImageButton>
+
+                <ImageButton
+                    android:id="@+id/imageButtonLoadPicture"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" >
+                </ImageButton>
+
+                <ImageButton
+                    android:id="@+id/imageButtonSave"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" >
+                </ImageButton>
+
+                <ImageButton
+                    android:id="@+id/buttonDecom"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" >
+                </ImageButton>
+
+                <ImageButton
+                    android:id="@+id/buttonVoice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" >
+                </ImageButton>
+            </LinearLayout>
+        </ScrollView>
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/LinearLayoutColor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
         android:visibility="invisible" >
 
         <ImageButton
@@ -97,7 +111,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5px"
-            android:orientation="horizontal" >
+            android:orientation="vertical" >
         </RadioGroup>
 
         <ImageButton
@@ -111,7 +125,7 @@
         android:id="@+id/linearLayoutDown"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/buttonLayout" >
+        android:layout_toRightOf="@id/buttonLayout" >
 
         <LinearLayout
             android:id="@+id/paintViewLayout"
@@ -124,19 +138,19 @@
         android:id="@+id/sizeSelectLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/buttonLayout"
         android:layout_centerInParent="true"
         android:layout_marginTop="8dp"
+        android:layout_toRightOf="@id/buttonLayout"
         android:background="@drawable/background"
         android:focusable="false"
-        android:orientation="horizontal"
+        android:orientation="vertical"
         android:visibility="invisible" >
 
         <RadioGroup
             android:id="@+id/eraseRaidoGroup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal" >
+            android:orientation="vertical" >
 
             <RadioButton
                 android:id="@+id/RadioButtonEraser01"
@@ -199,19 +213,19 @@
         android:id="@+id/sizeSelectLayoutPen"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/buttonLayout"
         android:layout_centerInParent="true"
         android:layout_marginTop="8dp"
+        android:layout_toRightOf="@id/buttonLayout"
         android:background="@drawable/background"
         android:focusable="false"
-        android:orientation="horizontal"
+        android:orientation="vertical"
         android:visibility="invisible" >
 
         <RadioGroup
             android:id="@+id/penRaidoGroup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal" >
+            android:orientation="vertical" >
 
             <RadioButton
                 android:id="@+id/RadioButtonPen01"
@@ -274,19 +288,19 @@
         android:id="@+id/shapSelectLayout1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/sizeSelectLayoutPen"
         android:layout_centerInParent="true"
         android:layout_marginTop="8dp"
+        android:layout_toRightOf="@id/sizeSelectLayoutPen"
         android:background="@drawable/popbackground4"
         android:focusable="false"
-        android:orientation="horizontal"
+        android:orientation="vertical"
         android:visibility="invisible" >
 
         <RadioGroup
             android:id="@+id/shapRadioGroup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal" >
+            android:orientation="vertical" >
 
             <RadioButton
                 android:id="@+id/RadioButtonShapCurv"
@@ -345,19 +359,19 @@
         android:id="@+id/shapSelectLayout2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/shapSelectLayout1"
         android:layout_centerInParent="true"
         android:layout_marginTop="0dp"
+        android:layout_toRightOf="@id/shapSelectLayout1"
         android:background="@drawable/popbackground4"
         android:focusable="false"
-        android:orientation="horizontal"
+        android:orientation="vertical"
         android:visibility="invisible" >
 
         <RadioGroup
             android:id="@+id/shapRadioGroupf"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal" >
+            android:orientation="vertical" >
 
             <RadioButton
                 android:id="@+id/RadioButtonShapLine"

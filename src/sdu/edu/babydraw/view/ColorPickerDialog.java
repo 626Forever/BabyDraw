@@ -26,6 +26,8 @@ public class ColorPickerDialog extends Dialog {
 		private int[] mHSVColors;
 		private boolean mRedrawHSV;
 		private OnColorChangedListener mListener;
+		private boolean mTrackingCenter;
+		private boolean mHighlightCenter;
 
 		ColorPickerView(Context c, OnColorChangedListener l, int color) {
 			super(c);
@@ -52,8 +54,7 @@ public class ColorPickerDialog extends Dialog {
 
 		}
 
-		private boolean mTrackingCenter;
-		private boolean mHighlightCenter;
+
 
 		@Override
 		protected void onDraw(Canvas canvas) {
