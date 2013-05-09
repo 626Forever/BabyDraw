@@ -64,26 +64,7 @@ public class Main extends Activity implements OnClickListener {
 	private static final int VOICE_RECOGNITION_REQUEST_CODE = 1234;
 	// PaintView
 	private PaintView mPaintView = null;
-	@SuppressLint("HandlerLeak")
 	
-	/**
-	 * handler处理消息队列
-	 */
-	private Handler mHandler = new Handler() {
-
-		@Override
-		public void handleMessage(Message msg) {
-			// TODO Auto-generated method stub
-			super.handleMessage(msg);
-			if (msg.arg1 == 1) {
-				Main.this.onClickButtonUndo();
-			}
-			if (msg.arg1 == 2) {
-				Main.this.onClickButtonRedo();
-			}
-		}
-
-	};
 	// button 界面上的各个按钮
 	private ImageButton decomButton=null;
 	private ImageButton voiceButton = null;
@@ -151,6 +132,30 @@ public class Main extends Activity implements OnClickListener {
 
 	// 使用PenType临时存储选择的变量，当创建时再传给PaintView
 	private int mPenType = PEN_TYPE.PLAIN_PEN;
+	
+	
+	@SuppressLint("HandlerLeak")
+	
+	/**
+	 * handler处理消息队列
+	 */
+	private Handler mHandler = new Handler() {
+
+		@Override
+		public void handleMessage(Message msg) {
+			// TODO Auto-generated method stub
+			super.handleMessage(msg);
+			if (msg.arg1 == 1) {
+				Main.this.onClickButtonUndo();
+			}
+			if (msg.arg1 == 2) {
+				Main.this.onClickButtonRedo();
+			}
+		}
+
+	};
+	
+	
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {

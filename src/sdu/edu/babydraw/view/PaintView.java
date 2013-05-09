@@ -306,8 +306,11 @@ public class PaintView extends View implements UndoCommand {
 	public void setCurrentPainterType(int type) {
 		switch (type) {
 		case PEN_TYPE.BLUR:
+
 		case PEN_TYPE.PLAIN_PEN:
+
 		case PEN_TYPE.EMBOSS:
+
 		case PEN_TYPE.ERASER:
 			mPaintType = type;
 			break;
@@ -455,7 +458,6 @@ public class PaintView extends View implements UndoCommand {
 	}
 
 	/*
-	 * ===================================内部类开始=================================
 	 * 内部类，负责undo、redo
 	 */
 	public class paintPadUndoStack {
@@ -583,6 +585,6 @@ public class PaintView extends View implements UndoCommand {
 			return "canUndo" + canUndo();
 		}
 	}
-	/* ==================================内部类结束 ================================= */
+	
 
 }
