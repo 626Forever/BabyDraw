@@ -719,14 +719,6 @@ public class Main extends Activity implements OnClickListener {
 			onClickButtonEmboss();
 			break;
 
-		case R.id.aboutButton:
-			onClickButtonAbout();
-			break;
-
-		case R.id.helpButton:
-			onClickButtonHelp();
-			break;
-
 		case R.id.buttonDecom:
 			onClickButtonShowPath();
 			break;
@@ -735,21 +727,6 @@ public class Main extends Activity implements OnClickListener {
 		}
 	}
 
-	/**
-	 * 关于的Activity
-	 */
-	void onClickButtonHelp() {
-		Intent intent = new Intent(this, Help.class);
-		startActivity(intent);
-	}
-
-	/**
-	 * 关于的Activity
-	 */
-	private void onClickButtonAbout() {
-		Intent intent = new Intent(this, About.class);
-		startActivity(intent);
-	}
 
 	/**
 	 * 点击浮动才当设置工具类型
