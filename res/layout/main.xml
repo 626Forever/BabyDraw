@@ -37,12 +37,6 @@
                 </ImageButton>
 
                 <ImageButton
-                    android:id="@+id/imageButtonTools"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" >
-                </ImageButton>
-
-                <ImageButton
                     android:id="@+id/imageButtonEraser"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" >

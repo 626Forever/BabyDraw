@@ -74,22 +74,22 @@ public class Main extends Activity implements OnClickListener {
 	private ImageButton redoButton = null;
 	private ImageButton toButtonLayoutButton = null;
 	private ImageButton toColorLayoutButton = null;
-	private ImageButton toolButton = null;
+	//private ImageButton toolButton = null;
 
 	// 点击工具按钮弹出浮动菜单上的按钮
-	private Button backGroundColorButton = null;
+	/*private Button backGroundColorButton = null;
 	private Button plainPaintButton = null;
 	private Button blurPaintButton = null;
-	private Button embossButton = null;
+	private Button embossButton = null;*/
 
-	// 点击Menu弹出的功能菜单
+	/*// 点击Menu弹出的功能菜单
 	private ImageButton exitButton = null;
 	private ImageButton aboutButton = null;
-	private ImageButton helpButton = null;
+	private ImageButton helpButton = null;*/
 
 	// 两个PopWindow
-	private PopupWindow mPopupWindow = null;
-	private PopupWindow toolsPopupWindow = null;
+	//private PopupWindow mPopupWindow = null;
+	//private PopupWindow toolsPopupWindow = null;
 
 
 	// 通过控制Layout来控制某些变化
@@ -152,7 +152,7 @@ public class Main extends Activity implements OnClickListener {
 		initLayout();
 		initButtons();
 		initPaintView();
-		initPopUpWindow();
+		//initPopUpWindow();
 		initCallBack();
 		initShapRadioGroups();
 	}
@@ -347,23 +347,23 @@ public class Main extends Activity implements OnClickListener {
 
 	/**
 	 * 初始化popUpWindow
-	 */
+	 *//*
 	private void initPopUpWindow() {
 		initMenuPopup();
 		initToolPopup();
-	}
+	}*/
 
 	/**
 	 * 初始化Tool的PopupWidow
-	 */
+	 *//*
 	private void initToolPopup() {
 		View toolsPopup = initToolPopWindowLayout();
 		initToolPopButtons(toolsPopup);
-	}
+	}*/
 
 	/**
 	 * 初始化ToolsPopupWindow的布局
-	 */
+	 *//*
 	private View initToolPopWindowLayout() {
 		LayoutInflater mLayoutInflater = (LayoutInflater) this
 				.getSystemService(LAYOUT_INFLATER_SERVICE);
@@ -372,11 +372,11 @@ public class Main extends Activity implements OnClickListener {
 				LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT, true);
 		toolsPopupWindow.setBackgroundDrawable(new BitmapDrawable());
 		return toolsPopup;
-	}
+	}*/
 
 	/**
 	 * 初始化ToolsPopupWindows上的Buttons
-	 */
+	 *//*
 	private void initToolPopButtons(View toolsPopup) {
 		plainPaintButton = (Button) toolsPopup
 				.findViewById(R.id.buttonPlainPen);
@@ -391,19 +391,19 @@ public class Main extends Activity implements OnClickListener {
 
 		embossButton = (Button) toolsPopup.findViewById(R.id.buttonEmboss);
 		setToolButton(embossButton);
-	}
+	}*/
 
 	/**
 	 * 初始化Menu的popupWindow
-	 */
+	 *//*
 	private void initMenuPopup() {
 		View menuPopup = initPopLayout();
 		initMenuPopButtons(menuPopup);
-	}
+	}*/
 
 	/**
 	 * 初始化MenuPopupWindow的布局
-	 */
+	 *//*
 	private View initPopLayout() {
 		LayoutInflater mLayoutInflater = (LayoutInflater) this
 				.getSystemService(LAYOUT_INFLATER_SERVICE);
@@ -413,11 +413,11 @@ public class Main extends Activity implements OnClickListener {
 				LayoutParams.WRAP_CONTENT, true);
 		mPopupWindow.setBackgroundDrawable(new BitmapDrawable());
 		return menuPopup;
-	}
+	}*/
 
 	/**
 	 * 初始化MenuPopupWindows上的Buttons
-	 */
+	 *//*
 	private void initMenuPopButtons(View menuPopup) {
 		exitButton = (ImageButton) menuPopup.findViewById(R.id.exitButton);
 		exitButton
@@ -433,15 +433,15 @@ public class Main extends Activity implements OnClickListener {
 		helpButton
 				.setImageDrawable(getResources().getDrawable(R.drawable.help));
 		helpButton.setOnClickListener(this);
-	}
+	}*/
 
 	/**
 	 * 设置popupWindow所用到的按钮的格式
-	 */
+	 *//*
 	private void setToolButton(Button button) {
 		button.setOnClickListener(this);
 		button.setTextColor(Color.WHITE);
-	}
+	}*/
 
 	/**
 	 * 初始化画画所用的paintView
@@ -509,7 +509,7 @@ public class Main extends Activity implements OnClickListener {
 		list.add(redoButton);
 		list.add(toButtonLayoutButton);
 		list.add(toColorLayoutButton);
-		list.add(toolButton);
+		//list.add(toolButton);
 		list.add(voiceButton);
 		list.add(decomButton);
 		return list;
@@ -531,7 +531,7 @@ public class Main extends Activity implements OnClickListener {
 		undoButton = (ImageButton) findViewById(R.id.imageButtonUndo);
 		redoButton = (ImageButton) findViewById(R.id.imageButtonRedo);
 
-		toolButton = (ImageButton) findViewById(R.id.imageButtonTools);
+		//toolButton = (ImageButton) findViewById(R.id.imageButtonTools);
 
 		toButtonLayoutButton = (ImageButton) findViewById(R.id.imageButtonToButtonLayout);
 		toColorLayoutButton = (ImageButton) findViewById(R.id.imageButtonToColorLayout);
@@ -566,8 +566,8 @@ public class Main extends Activity implements OnClickListener {
 				R.drawable.changetobuttonlayout));
 		toColorLayoutButton.setBackgroundDrawable(getResources().getDrawable(
 				R.drawable.changetocolorlayout));
-		toolButton.setBackgroundDrawable(getResources().getDrawable(
-				R.drawable.tools));
+		/*toolButton.setBackgroundDrawable(getResources().getDrawable(
+				R.drawable.tools));*/
 	}
 
 	/**
@@ -624,10 +624,10 @@ public class Main extends Activity implements OnClickListener {
 			onClickButtonBackGround();
 			break;
 
-		case R.id.imageButtonTools:
-			onClickButtonTools();
+		/*case R.id.imageButtonTools:
+			//onClickButtonTools();
 			break;
-
+*/
 		case R.id.buttonBlurPen:
 			onClickButtonBlurPen();
 			break;
@@ -658,7 +658,7 @@ public class Main extends Activity implements OnClickListener {
 	private void setToolTyle(int type) {
 		mPaintView.setCurrentPainterType(type);
 		mPenType = type;
-		toolsPopupWindow.dismiss();
+		//toolsPopupWindow.dismiss();
 	}
 
 	/**
@@ -691,12 +691,12 @@ public class Main extends Activity implements OnClickListener {
 
 	/**
 	 * 点击工具，弹出工具选项
-	 */
+	 *//*
 	private void onClickButtonTools() {
 		setAllLayoutInvisable();
 		toolsPopupWindow.showAtLocation(findViewById(R.id.mainLayout),
 				Gravity.RIGHT | Gravity.BOTTOM, 0, 0);
-	}
+	}*/
 
 
 	/**
@@ -707,8 +707,8 @@ public class Main extends Activity implements OnClickListener {
 		// 点击menu
 		if (keyCode == KeyEvent.KEYCODE_MENU) {
 			setAllLayoutInvisable();
-			mPopupWindow.showAtLocation(findViewById(R.id.mainLayout),
-					Gravity.RIGHT | Gravity.BOTTOM, 0, 0);
+			/*mPopupWindow.showAtLocation(findViewById(R.id.mainLayout),
+					Gravity.RIGHT | Gravity.BOTTOM, 0, 0);*/
 		}
 		// 点击返回
 		if (keyCode == KeyEvent.KEYCODE_BACK) {
@@ -735,7 +735,7 @@ public class Main extends Activity implements OnClickListener {
 			@Override
 			public void colorChanged(int color) {
 				mPaintView.setBackGroundColor(color);
-				toolsPopupWindow.dismiss();
+				//toolsPopupWindow.dismiss();
 			}
 		}, mPaintView.getBackGroundColor()).show();
 		Log.e("aaa", "" + mPaintView.getBackGroundColor());
