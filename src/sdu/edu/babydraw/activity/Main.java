@@ -64,9 +64,9 @@ public class Main extends Activity implements OnClickListener {
 	private static final int VOICE_RECOGNITION_REQUEST_CODE = 1234;
 	// PaintView
 	private PaintView mPaintView = null;
-	
+
 	// button 界面上的各个按钮
-	private ImageButton decomButton=null;
+	private ImageButton decomButton = null;
 	private ImageButton voiceButton = null;
 	private ImageButton saveButton = null;
 	private ImageButton loadButton = null;
@@ -132,10 +132,8 @@ public class Main extends Activity implements OnClickListener {
 
 	// 使用PenType临时存储选择的变量，当创建时再传给PaintView
 	private int mPenType = PEN_TYPE.PLAIN_PEN;
-	
-	
+
 	@SuppressLint("HandlerLeak")
-	
 	/**
 	 * handler处理消息队列
 	 */
@@ -154,8 +152,6 @@ public class Main extends Activity implements OnClickListener {
 		}
 
 	};
-	
-	
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -596,7 +592,7 @@ public class Main extends Activity implements OnClickListener {
 	 * 找到所有的通过所有的button
 	 */
 	private void findButtonById() {
-		decomButton= (ImageButton)findViewById(R.id.buttonDecom);
+		decomButton = (ImageButton) findViewById(R.id.buttonDecom);
 		voiceButton = (ImageButton) findViewById(R.id.buttonVoice);
 		saveButton = (ImageButton) findViewById(R.id.imageButtonSave);
 		loadButton = (ImageButton) findViewById(R.id.imageButtonLoadPicture);
@@ -618,9 +614,11 @@ public class Main extends Activity implements OnClickListener {
 	 * 初始化所有Button的Drawable
 	 */
 	private void setBackGroundDrawable() {
-		
-		voiceButton.setBackgroundDrawable(getResources().getDrawable(R.drawable.voice));
-		decomButton.setBackgroundDrawable(getResources().getDrawable(R.drawable.decomposition));
+
+		voiceButton.setBackgroundDrawable(getResources().getDrawable(
+				R.drawable.voice));
+		decomButton.setBackgroundDrawable(getResources().getDrawable(
+				R.drawable.decomposition));
 		clearButton.setBackgroundDrawable(getResources().getDrawable(
 				R.drawable.newfile));
 		eraserButton.setBackgroundDrawable(getResources().getDrawable(
@@ -726,7 +724,6 @@ public class Main extends Activity implements OnClickListener {
 			break;
 		}
 	}
-
 
 	/**
 	 * 点击浮动才当设置工具类型
@@ -1162,6 +1159,7 @@ public class Main extends Activity implements OnClickListener {
 				 */
 				for (int i = 0; i < matches.size(); i++) {
 					if (matches.get(i).equals("小狗")) {
+						getResource();
 						System.out.println("true");
 					} else {
 						System.out.println("false");
@@ -1174,6 +1172,37 @@ public class Main extends Activity implements OnClickListener {
 			break;
 		}
 		super.onActivityResult(requestCode, resultCode, data);
+	}
+
+	private void getResource() {
+		Bitmap bitmap;
+		BitmapFactory.Options op = new BitmapFactory.Options();
+		op.inJustDecodeBounds = true;
+		BitmapFactory.decodeResource(this.getResources(), R.drawable.save, op);
+		int wRatio = (int) Math.ceil(op.outWidth
+				/ (float) mPaintView.getWidth());
+		int hRatio = (int) Math.ceil(op.outHeight
+				/ (float) mPaintView.getHeight());
+		// 如果超出指定大小，则缩小相应的比例
+		if (wRatio > 1 && hRatio > 1) {
+			if (wRatio > hRatio) {
+				op.inSampleSize = wRatio;
+			} else {
+				op.inSampleSize = hRatio;
+			}
+		}
+		op.inJustDecodeBounds = false;
+		bitmap = BitmapFactory.decodeResource(this.getResources(),
+				R.drawable.save, op);
+		bitmap = BitmapFactory.decodeResource(this.getResources(),
+				R.drawable.save);
+		mPaintView.setForeBitMap(bitmap);
+		mPaintView.resetState();
+		upDateUndoRedo();
+		if (bitmap != null && !bitmap.isRecycled()) {
+			bitmap.recycle();
+			bitmap = null;
+		}
 	}
 
 	/**
