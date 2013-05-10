@@ -556,8 +556,8 @@ public class Main extends Activity implements OnClickListener {
 				R.drawable.save));
 		penSizeButton.setBackgroundDrawable(getResources().getDrawable(
 				R.drawable.pen_default));
-		colorSelectButton.setBackgroundDrawable(getResources().getDrawable(
-				R.drawable.colorselect));
+		/*colorSelectButton.setBackgroundDrawable(getResources().getDrawable(
+				R.drawable.colorselect));*/
 		redoButton.setBackgroundDrawable(getResources().getDrawable(
 				R.drawable.cantredo));
 		undoButton.setBackgroundDrawable(getResources().getDrawable(

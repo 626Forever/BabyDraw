@@ -20,18 +20,18 @@ public final class R {
     }
     public static final class drawable {
         public static final int about=0x7f020000;
-        public static final int background=0x7f020001;
-        public static final int backtomain=0x7f020002;
-        public static final int button_n=0x7f020003;
-        public static final int button_p=0x7f020004;
-        public static final int buttonselector=0x7f020005;
-        public static final int cancle=0x7f020006;
-        public static final int cantredo=0x7f020007;
-        public static final int cantundo=0x7f020008;
-        public static final int caution=0x7f020009;
-        public static final int changetobuttonlayout=0x7f02000a;
-        public static final int changetocolorlayout=0x7f02000b;
-        public static final int colorselect=0x7f02000c;
+        public static final int baby_draw=0x7f020001;
+        public static final int background=0x7f020002;
+        public static final int backtomain=0x7f020003;
+        public static final int button_n=0x7f020004;
+        public static final int button_p=0x7f020005;
+        public static final int buttonselector=0x7f020006;
+        public static final int cancle=0x7f020007;
+        public static final int cantredo=0x7f020008;
+        public static final int cantundo=0x7f020009;
+        public static final int caution=0x7f02000a;
+        public static final int changetobuttonlayout=0x7f02000b;
+        public static final int changetocolorlayout=0x7f02000c;
         public static final int decomposition=0x7f02000d;
         public static final int dog=0x7f02000e;
         public static final int eraser=0x7f02000f;
