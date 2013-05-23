@@ -8,6 +8,11 @@ import android.graphics.Path;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 
+/**
+ * 橡皮类,封装橡皮的方法
+ * @author lhy
+ *
+ */
 public class Eraser implements ToolInterface {
 	// 只有等移动距离超过这个值才会移动
 	private static final float TOUCH_TOLERANCE = 4.0f;

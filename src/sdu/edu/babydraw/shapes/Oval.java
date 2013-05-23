@@ -5,6 +5,11 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.RectF;
 
+/**
+ * 椭圆类，封装绘画椭圆形状方法
+ * @author lhy
+ *
+ */
 public class Oval extends ShapeAbstract {
 
 	RectF mRectF;

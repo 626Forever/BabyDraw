@@ -8,6 +8,11 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.LinearLayout;
 
+/**
+ * ÑÕÉ«Ñ¡ÔñÆ÷
+ * @author lhy
+ *
+ */
 public class ColorPickerDialog extends Dialog {
 
 	public interface OnColorChangedListener {

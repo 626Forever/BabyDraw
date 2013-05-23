@@ -22,6 +22,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+/**
+ * 文件存储对话框
+ * @author hzy
+ *
+ */
 public class SaveDialog extends Dialog implements
 		android.view.View.OnClickListener {
 	private EditTextDialogListener mListener;

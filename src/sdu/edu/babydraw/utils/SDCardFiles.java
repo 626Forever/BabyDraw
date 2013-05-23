@@ -7,6 +7,11 @@ import java.util.List;
 import sdu.edu.babydraw.utils.PaintConstants.PATH;
 import android.util.Log;
 
+/**
+ * SDCard文件工具类，操作本地文件的方法
+ * @author hzy
+ *
+ */
 public class SDCardFiles {
 	public static List<File> getPaintPadPicFiles() {
 		List<File> imageFiles = new ArrayList<File>();

@@ -16,7 +16,11 @@ import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.graphics.Bitmap.Config;
 import android.provider.MediaStore;
-
+/**
+ * 图片工具类，封装了图片存储与读取等操作SDCard文件的方法
+ * @author hzy
+ *
+ */
 public class BitMapUtils {
 
 	public static void saveToSdCard(String path, Bitmap bitmap) {

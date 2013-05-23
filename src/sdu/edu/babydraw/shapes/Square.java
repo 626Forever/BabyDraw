@@ -4,6 +4,11 @@ import sdu.edu.babydraw.interfaces.Shapable;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 
+/**
+ * 
+ * @author lhy
+ *
+ */
 public class Square extends ShapeAbstract {
 
 	public Square(Shapable paintTool) {

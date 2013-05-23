@@ -6,6 +6,11 @@ import android.view.View;
 import android.view.View.OnFocusChangeListener;
 import android.view.View.OnTouchListener;
 
+/**
+ * 按钮工具类，此类可以统一控制各按钮的模式处理
+ * @author hzy
+ *
+ */
 public class ImageButtonTools {
 
 	private ImageButtonTools() {

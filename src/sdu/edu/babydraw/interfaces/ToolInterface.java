@@ -3,7 +3,11 @@ package sdu.edu.babydraw.interfaces;
 
 import android.graphics.Canvas;
 
-//所有画笔都应当实现这个接口
+/**
+ * 画笔工具接口
+ * @author hzy
+ *
+ */
 public interface ToolInterface {
 	public void draw(Canvas canvas);
 

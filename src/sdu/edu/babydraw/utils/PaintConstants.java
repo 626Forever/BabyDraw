@@ -2,6 +2,11 @@ package sdu.edu.babydraw.utils;
 
 import android.graphics.Color;
 
+/**
+ * ³£ÊıÀà
+ * @author hzy
+ *
+ */
 public class PaintConstants {
 
 	private PaintConstants() {

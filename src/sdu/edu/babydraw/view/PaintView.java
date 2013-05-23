@@ -7,8 +7,6 @@ import sdu.edu.babydraw.interfaces.Shapable;
 import sdu.edu.babydraw.interfaces.ShapesInterface;
 import sdu.edu.babydraw.interfaces.ToolInterface;
 import sdu.edu.babydraw.interfaces.UndoCommand;
-import sdu.edu.babydraw.painttools.BlurPen;
-import sdu.edu.babydraw.painttools.EmbossPen;
 import sdu.edu.babydraw.painttools.Eraser;
 import sdu.edu.babydraw.painttools.PlainPen;
 import sdu.edu.babydraw.shapes.Circle;
@@ -33,6 +31,11 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 
+/**
+ * 绘图界面，通过使用各种类型画笔在此界面绘画，将界面展示达到绘画效果
+ * @author lhy
+ *
+ */
 public class PaintView extends View implements UndoCommand {
 
 	boolean canvasIsCreated = false;
@@ -198,12 +201,6 @@ public class PaintView extends View implements UndoCommand {
 			break;
 		case PEN_TYPE.ERASER:
 			tool = new Eraser(mEraserSize);
-			break;
-		case PEN_TYPE.BLUR:
-			tool = new BlurPen(mPenSize, mPenColor, mStyle);
-			break;
-		case PEN_TYPE.EMBOSS:
-			tool = new EmbossPen(mPenSize, mPenColor, mStyle);
 			break;
 		default:
 			break;

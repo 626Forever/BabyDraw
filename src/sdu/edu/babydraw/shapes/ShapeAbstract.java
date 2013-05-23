@@ -8,8 +8,10 @@ import android.graphics.Paint;
 import android.graphics.Path;
 
 /**
- * 提供shape子类的默认实现
-*/
+ * 默认的形状类，提供shape子类的默认实现
+ * @author lhy
+ *
+ */
 public class ShapeAbstract implements ShapesInterface {
 
 	protected Shapable paintTool = null;

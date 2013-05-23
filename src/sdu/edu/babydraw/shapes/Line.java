@@ -4,6 +4,11 @@ import sdu.edu.babydraw.interfaces.Shapable;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 
+/**
+ * 绘画直线类，封装了直线方法
+ * @author lhy
+ *
+ */
 public class Line extends ShapeAbstract {
 
 	public Line(Shapable paintTool) {

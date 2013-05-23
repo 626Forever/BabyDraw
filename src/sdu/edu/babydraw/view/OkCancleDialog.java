@@ -11,6 +11,11 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+/**
+ * 确认取消对话框
+ * @author hzy
+ *
+ */
 public class OkCancleDialog extends Dialog implements android.view.View.OnClickListener{
 	private OnClickOkListener mListener;
 	private ImageView mImageView;

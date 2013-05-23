@@ -4,6 +4,11 @@ import sdu.edu.babydraw.interfaces.Shapable;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 
+/**
+ * 圆类，封装了圆形状的方法。
+ * @author lhy
+ *
+ */
 public class Circle extends ShapeAbstract {
 
 	public Circle(Shapable paintTool) {

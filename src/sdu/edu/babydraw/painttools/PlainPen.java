@@ -3,7 +3,11 @@ package sdu.edu.babydraw.painttools;
 import sdu.edu.babydraw.interfaces.ToolInterface;
 import android.graphics.Paint;
 
-//∆’Õ®ª≠± 
+/**
+ * ª≠± ¿‡£¨∑‚◊∞ª≠± ªÊª≠∑Ω∑®
+ * @author lhy
+ *
+ */
 public class PlainPen extends PenAbstract implements ToolInterface {
 	public PlainPen(int size, int penColor) {
 		this(size,penColor,Paint.Style.STROKE);
