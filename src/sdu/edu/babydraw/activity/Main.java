@@ -9,6 +9,7 @@ import sdu.edu.babydraw.interfaces.OnClickOkListener;
 import sdu.edu.babydraw.interfaces.PaintViewCallBack;
 import sdu.edu.babydraw.utils.BitMapUtils;
 import sdu.edu.babydraw.utils.ImageButtonTools;
+import sdu.edu.babydraw.utils.NetworkConnection;
 import sdu.edu.babydraw.utils.PaintConstants;
 import sdu.edu.babydraw.utils.PaintConstants.ERASER_SIZE;
 import sdu.edu.babydraw.utils.PaintConstants.PEN_SIZE;
@@ -27,9 +28,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -37,18 +36,14 @@ import android.os.Handler;
 import android.os.Message;
 import android.speech.RecognizerIntent;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.KeyEvent;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
-import android.widget.LinearLayout.LayoutParams;
-import android.widget.PopupWindow;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
 /**
  * Main Activity实现了主场景的Activity主要负责PaintView与各组件的协调
@@ -60,6 +55,8 @@ public class Main extends Activity implements OnClickListener {
 	private static final int VOICE_RECOGNITION_REQUEST_CODE = 1234;
 	// PaintView
 	private PaintView mPaintView = null;
+
+	private NetworkConnection netConn = null;
 
 	// button 界面上的各个按钮
 	private ImageButton decomButton = null;
@@ -74,8 +71,7 @@ public class Main extends Activity implements OnClickListener {
 	private ImageButton redoButton = null;
 	private ImageButton toButtonLayoutButton = null;
 	private ImageButton toColorLayoutButton = null;
-	//private ImageButton toolButton = null;
-
+	// private ImageButton toolButton = null;
 
 	// 通过控制Layout来控制某些变化
 	private LinearLayout colorLayout = null;
@@ -114,7 +110,7 @@ public class Main extends Activity implements OnClickListener {
 		@SuppressLint("HandlerLeak")
 		@Override
 		public void handleMessage(Message msg) {
-		    //TODO Auto-generated method stub
+			// TODO Auto-generated method stub
 			super.handleMessage(msg);
 			if (msg.arg1 == 1) {
 				Main.this.onClickButtonUndo();
@@ -137,7 +133,7 @@ public class Main extends Activity implements OnClickListener {
 		initLayout();
 		initButtons();
 		initPaintView();
-		//initPopUpWindow();
+		// initPopUpWindow();
 		initCallBack();
 		initShapRadioGroups();
 	}
@@ -330,7 +326,6 @@ public class Main extends Activity implements OnClickListener {
 		});
 	}
 
-
 	/**
 	 * 初始化画画所用的paintView
 	 */
@@ -357,7 +352,6 @@ public class Main extends Activity implements OnClickListener {
 		shapLayoutf = (LinearLayout) findViewById(R.id.shapSelectLayout2);
 	}
 
-
 	/**
 	 * 如果是Eraser则Set到上一个PenType
 	 */
@@ -366,7 +360,6 @@ public class Main extends Activity implements OnClickListener {
 			mPaintView.setCurrentPainterType(mPenType);
 		}
 	}
-
 
 	/**
 	 * 初始化所有的Button
@@ -397,7 +390,7 @@ public class Main extends Activity implements OnClickListener {
 		list.add(redoButton);
 		list.add(toButtonLayoutButton);
 		list.add(toColorLayoutButton);
-		//list.add(toolButton);
+		// list.add(toolButton);
 		list.add(voiceButton);
 		list.add(decomButton);
 		return list;
@@ -461,7 +454,13 @@ public class Main extends Activity implements OnClickListener {
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.buttonVoice:
-			this.startVoiceRecognitionActivity();
+			netConn = new NetworkConnection(this);
+			if (!netConn.checkNetworkStates()) {
+				Toast.makeText(Main.this, "网络连接失败，请检查网络", Toast.LENGTH_LONG)
+						.show();
+			} else {
+				this.startVoiceRecognitionActivity();
+			}
 			break;
 
 		case R.id.imageButtonSave:
@@ -534,7 +533,7 @@ public class Main extends Activity implements OnClickListener {
 	private void setToolTyle(int type) {
 		mPaintView.setCurrentPainterType(type);
 		mPenType = type;
-		//toolsPopupWindow.dismiss();
+		// toolsPopupWindow.dismiss();
 	}
 
 	/**
@@ -565,7 +564,6 @@ public class Main extends Activity implements OnClickListener {
 		setToolTyle(PEN_TYPE.BLUR);
 	}
 
-
 	/**
 	 * 当点击menu的时候将popupwindow伪装成menu显示
 	 */
@@ -591,20 +589,6 @@ public class Main extends Activity implements OnClickListener {
 		return super.onKeyUp(keyCode, event);
 	}
 
-	/**
-	 * 改变背景颜色
-	 */
-	private void onClickButtonBackGround() {
-		// 初始颜色为原来的背景颜色
-		new ColorPickerDialog(this, new OnColorChangedListener() {
-			@Override
-			public void colorChanged(int color) {
-				mPaintView.setBackGroundColor(color);
-				//toolsPopupWindow.dismiss();
-			}
-		}, mPaintView.getBackGroundColor()).show();
-		Log.e("aaa", "" + mPaintView.getBackGroundColor());
-	}
 
 	/**
 	 * 去ButtonLayout（主界面）
@@ -613,7 +597,6 @@ public class Main extends Activity implements OnClickListener {
 		buttonLayout.setVisibility(View.VISIBLE);
 		colorLayout.setVisibility(View.GONE);
 	}
-
 
 	/**
 	 * redo
@@ -914,7 +897,7 @@ public class Main extends Activity implements OnClickListener {
 			if (resultCode == RESULT_OK) {
 				ArrayList<String> matches = data
 						.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
-			
+
 				for (int i = 0; i < matches.size(); i++) {
 					if (matches.get(i).equals("小狗")) {
 						getResource(R.drawable.dog);
@@ -1007,8 +990,7 @@ public class Main extends Activity implements OnClickListener {
 		Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
 		intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
 				RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
-		intent.putExtra(RecognizerIntent.EXTRA_PROMPT,
-				"请说出绘制需要绘制的图片:");
+		intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "请说出绘制需要绘制的图片:");
 		startActivityForResult(intent, VOICE_RECOGNITION_REQUEST_CODE);
 	}
 
