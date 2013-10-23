@@ -48,6 +48,7 @@ import android.widget.Toast;
 /**
  * Main Activity实现了主场景的Activity主要负责PaintView与各组件的协调
  * 
+ * 
  * @author hzy，lhy
  * 
  */
